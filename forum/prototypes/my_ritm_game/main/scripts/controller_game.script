@@ -1,0 +1,280 @@
+-- Здесь был Даня
+-- Если ты только начал изучать Defold, знай, у тебя всё получится, главное не сдаваться ;3
+
+-- Подключаем модули для управления состоянием игры и аудио
+local GAME_STATE = require "main.modules.game_state"
+local AUDIO = require "main.modules.audio_manager"
+
+-- Определяем свойство задержки (не используется в коде)
+go.property("delay", 0)
+
+--- НАЧАЛО ДОБАВЛЕННОГО КОДА---
+-- Функция для расчёта очков за попадание
+local function get_score_for_hit(accuracy, combo)
+	-- Устанавливаем базовые очки в зависимости от точности
+	local base_score = 0
+	if accuracy == "perfect" then
+		base_score = 1000 -- 1000 очков за "perfect"
+	elseif accuracy == "good" then
+		base_score = 500  -- 500 очков за "good"
+	elseif accuracy == "miss" then
+		return 0          -- 0 очков за промах
+	end
+
+	-- Вычисляем множитель на основе комбо (макс. 3.0)
+	local multiplier = math.min(1 + combo * 0.05, 3.0)
+	-- Возвращаем итоговые очки (округленные вниз)
+	return math.floor(base_score * multiplier)
+end
+
+-- Функция для обработки попадания и обновления очков/комбо
+local function handle_hit(self, accuracy)
+	-- Если промах, сбрасываем комбо
+	if accuracy == "miss" then
+		self.combo = 0
+	else
+		-- При попадании увеличиваем комбо
+		self.combo = self.combo + 1
+		-- Обновляем максимальное комбо, если текущее больше
+		if self.combo > self.max_combo then
+			self.max_combo = self.combo
+		end
+	end
+
+	-- Вычисляем очки за попадание
+	local score_add = get_score_for_hit(accuracy, self.combo)
+	-- Добавляем очки к общему счёту
+	self.score = self.score + score_add
+
+	-- Логируем результат попадания
+	print(string.format("Hit: %s | Combo: %d | Score: %d ", accuracy, self.combo, self.score))
+
+	-- Отправляем данные в GUI для отображения
+	msg.post("/gui#game", "update_score", {
+		score = self.score,
+		combo = self.combo,
+		max_combo = self.max_combo
+	})
+end
+--- КОНЕЦ ДОБАВЛЕННОГО КОДА ---
+
+-- Инициализация игрового контроллера
+function init(self)
+	--- НАЧАЛО ДОБАВЛЕННОГО КОДА ---
+	-- Инициализируем переменные для подсчёта очков
+	self.score = 0
+	self.combo = 0
+	self.max_combo = 0
+	--- КОНЕЦ ДОБАВЛЕННОГО КОДА ---
+
+	-- Устанавливаем начальное состояние игры
+	math.randomseed(os.time())
+	GAME_STATE.set_state("playing")
+
+	-- Позиции кнопок для четырёх треков (x-координаты: 100, 270, 440, 610)
+	self.button_spawn_position = {
+		vmath.vector3(100, 90, 0),
+		vmath.vector3(270, 90, 0),
+		vmath.vector3(440, 90, 0),
+		vmath.vector3(610, 90, 0)
+	}
+
+	-- Скорость движения нот (пикселей в секунду)
+	self.speed = 300
+	-- Таблица для хранения данных о созданных нотах
+	self.notes = {}
+	-- Позиции треков для спавна нот (вверху экрана)
+	self.track = {
+		vmath.vector3(100, 1100, 0),
+		vmath.vector3(270, 1100, 0),
+		vmath.vector3(440, 1100, 0),
+		vmath.vector3(610, 1100, 0)
+	}
+
+	-- Спавн кнопок для каждого трека
+	for i = 1, 4 do
+		local id = factory.create("#buttonfactory", self.button_spawn_position[i], nil, {}, 2)
+		-- Устанавливаем анимацию для кнопки (button_1, button_2 и т.д.)
+		sprite.play_flipbook(id, "button_" .. i)
+	end
+
+	-- Загрузка данных песни из JSON-файла
+	local start_load = os.clock()
+	local file = sys.load_resource("/main/data/song_data.json")
+	print("JSON load time: " .. (os.clock() - start_load) .. " seconds")
+	if not file then
+		print("Ошибка: Не удалось загрузить файл song_data.json")
+		return
+	end
+	self.beatmap = json.decode(file)
+	if not self.beatmap or not self.beatmap.beat_times then
+		print("Ошибка: Некорректный формат JSON или отсутствует beat_times")
+		return
+	end
+
+	-- Логируем первые 5 временных меток для проверки
+	print("Первые 5 beat_times:", table.concat({unpack(self.beatmap.beat_times, 1, 5)}, ", "))
+
+	-- Создаём таблицу beats на основе beat_times из JSON
+	self.beats = {}
+	for i, time in ipairs(self.beatmap.beat_times) do
+		table.insert(self.beats, { time = time, track = math.random(1, 4), type = "tap" })
+	end
+	print("Количество нот для спавна:", #self.beats)
+
+	-- Инициализируем индекс текущего бита и время
+	self.current_beat_index = 1
+	self.start_time = os.clock()
+	self.elapsed_time = 0
+
+	-- Время движения ноты от спавна (y=1100) до кнопки (y=50)
+	self.travel_time = (1100 - 50) / self.speed -- 1050 / 300 ≈ 3.5 сек
+
+	-- Запускаем музыку через audio_manager
+	AUDIO.play("music")
+end
+
+
+-- Обновление игры на каждом кадре
+function update(self, dt)
+	-- Прерываем обновление, если игра на паузе
+	if GAME_STATE.is_paused() then
+		return
+	end
+
+	-- Обновляем прошедшее время
+	self.elapsed_time = os.clock() - self.start_time
+
+	-- Спавн нот с учётом времени движения
+	if self.current_beat_index <= #self.beats then
+		local beat = self.beats[self.current_beat_index]
+		local spawn_time = beat.time - self.travel_time
+		-- Если текущее время достигло времени спавна
+		if self.elapsed_time >= spawn_time then
+			local track_number = beat.track
+			local track_pos = self.track[track_number]
+			-- Создаём ноту с помощью фабрики
+			local id = factory.create("#notefactory", track_pos, nil, {}, 1.8)
+			-- Устанавливаем анимацию в зависимости от типа ноты
+			if beat.type == "tap" then
+				sprite.play_flipbook(id, "note_" .. track_number)
+			elseif beat.type == "hold" then
+				sprite.play_flipbook(id, "note_hold_" .. track_number)
+			end
+			-- Регистрируем ноту в self.notes
+			self.notes[id] = { beat_time = beat.time, track = track_number }
+			self.current_beat_index = self.current_beat_index + 1
+			print(string.format("Нота заспавнена на треке %d для бита в %.2f сек", track_number, beat.time))
+		end
+	end
+
+	-- Движение нот и удаление, если они вышли за пределы экрана
+	for note_id, note_data in pairs(self.notes) do
+		if go.exists(note_id) then
+			-- Обновляем позицию ноты (движение вниз)
+			local pos = go.get_position(note_id)
+			pos = pos + vmath.vector3(0, -self.speed * dt, 0)
+			go.set_position(pos, note_id)
+			-- Логируем, когда нота достигает y=50 (близко к кнопке)
+			if math.abs(pos.y - 50) < 5 then
+				print(string.format("Note at button: note_id=%s, y=%.2f, time=%.3f, beat_time=%.3f, time_diff=%.3f",
+				tostring(note_id), pos.y, self.elapsed_time, note_data.beat_time, math.abs(self.elapsed_time - note_data.beat_time)))
+			end
+			-- Удаляем ноту, если она вышла за пределы экрана (y <= -20)
+			if pos.y <= -20 then
+				go.delete(note_id)
+				self.notes[note_id] = nil
+				print("Note deleted (out of bounds): note_id=" .. tostring(note_id))
+				msg.post("/game", "note_miss")
+			end
+		end
+	end
+end
+
+
+-- Обработка входящих сообщений
+function on_message(self, message_id, message, sender)
+	-- Если игра на паузе, обрабатываем только команды управления музыкой
+	if GAME_STATE.get_state() == "paused" then
+		if message_id == hash("pause_music") then
+			AUDIO.pause("music")
+		elseif message_id == hash("resume_music") then
+			AUDIO.resume("music")
+		elseif message_id == hash("play_music") then
+			AUDIO.play("music")
+		end
+		return
+	end
+
+	-- Обработка запроса на удаление ноты
+	if message_id == hash("request_delete_note") then
+		local note_id = message.delete_id_note
+		-- Проверяем, существует ли нота в self.notes и в игре
+		if self.notes[note_id] and go.exists(note_id) then
+			go.delete(note_id)
+			self.notes[note_id] = nil
+			print("Note deleted (hit): note_id=" .. tostring(note_id))
+		end
+		--- НАЧАЛО ДОБАВЛЕННОГО КОДА ---
+		-- Обработка сообщения о попадании по ноте
+	elseif message_id == hash("note_hit") then
+		-- Обрабатываем попадание с помощью функции подсчёта очков
+		handle_hit(self, message.accuracy)
+		-- Обработка промаха
+	elseif message_id == hash("note_miss") then
+		-- Обрабатываем промах с помощью функции подсчёта очков
+		handle_hit(self, "miss")
+		--- КОНЕЦ ДОБАВЛЕННОГО КОДА ---
+		-- Обработка проверки попадания по ноте
+	elseif message_id == hash("check_note_hit") then
+		print("Received check_note_hit: note_id=" .. tostring(message.note_id))
+		local note_id = message.note_id
+		local button_pos = message.button_pos
+		local current_time = message.current_time - self.start_time
+
+		-- Проверяем, зарегистрирована ли нота
+		if self.notes[note_id] then
+			local note_data = self.notes[note_id]
+			local beat_time = note_data.beat_time
+			local time_diff = math.abs(current_time - beat_time)
+			local track_number = note_data.track
+
+			-- Определяем временные окна для точности
+			local PERFECT_WINDOW = 0.3 -- ±300 мс для Android
+			local GOOD_WINDOW = 0.5    -- ±500 мс для Android
+			local accuracy = "miss"
+			if time_diff <= PERFECT_WINDOW then
+				accuracy = "perfect"
+			elseif time_diff <= GOOD_WINDOW then
+				accuracy = "good"
+			end
+
+			-- Проверяем трек кнопки
+			local note_pos = go.get_position(note_id)
+			local button_track = nil
+			for i, pos in ipairs(self.button_spawn_position) do
+				if math.abs(pos.x - button_pos.x) < 0.1 then
+					button_track = i
+					break
+				end
+			end
+
+			-- Логируем данные нажатия для отладки
+			print(string.format("Tap Debug: note_id=%s, tap_time=%.3f, beat_time=%.3f, time_diff=%.3f, accuracy=%s, note_track=%d, button_track=%s",
+			tostring(note_id), current_time, beat_time, time_diff, accuracy, track_number, button_track or "nil"))
+
+			-- Проверяем совпадение трека
+			if button_track and button_track == track_number then
+				print(string.format("Hit: note_id=%s, time_diff=%.3f, accuracy=%s", tostring(note_id), time_diff, accuracy))
+				msg.post("/game", "note_hit", { accuracy = accuracy })
+				msg.post("/game", "request_delete_note", { delete_id_note = note_id })
+			else
+				print("Miss: wrong track, note_track=" .. track_number .. ", button_track=" .. (button_track or "nil"))
+				msg.post("/game", "note_miss")
+			end
+		else
+			print("Miss: note not found in self.notes, id=" .. tostring(message.note_id))
+			msg.post("/game", "note_miss")
+		end
+	end
+end

@@ -1,0 +1,34 @@
+images {
+  image: "/main/assets/images/button_1.png"
+}
+images {
+  image: "/main/assets/images/button_2.png"
+}
+images {
+  image: "/main/assets/images/button_3.png"
+}
+images {
+  image: "/main/assets/images/button_4.png"
+}
+images {
+  image: "/main/assets/images/green_button.png"
+}
+images {
+  image: "/main/assets/images/note_1.png"
+}
+images {
+  image: "/main/assets/images/note_2.png"
+}
+images {
+  image: "/main/assets/images/note_3.png"
+}
+images {
+  image: "/main/assets/images/note_4.png"
+}
+images {
+  image: "/main/assets/images/pause.png"
+}
+images {
+  image: "/main/assets/images/resume.png"
+}
+extrude_borders: 2

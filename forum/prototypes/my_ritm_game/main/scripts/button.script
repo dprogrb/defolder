@@ -1,0 +1,85 @@
+-- Подключаем модуль для обработки ввода (нажатий)
+local cursor = require "in.cursor"
+
+-- Инициализация кнопки
+function init(self)
+	-- Создаём таблицу для хранения ID нот, находящихся в зоне триггера кнопки
+	self.notes_inside = {}
+	print("Button initialized, ID: " .. tostring(go.get_id()))
+end
+
+-- Обработка входящих сообщений для кнопки
+function on_message(self, message_id, message, sender)
+	-- Обработка сообщения о входе/выходе объекта в зону триггера
+	if message_id == hash("trigger_response") then
+		-- Проверяем, что объект относится к группе "note" (нота)
+		if message.other_group == hash("note") then
+			-- Если нота вошла в триггер
+			if message.enter then
+				-- Добавляем ID ноты в таблицу notes_inside
+				self.notes_inside[message.other_id] = true
+				print(string.format("Нота вошла в триггер: note_id=%s, button_id=%s", tostring(message.other_id), tostring(go.get_id())))
+				-- Если нота вышла из триггера
+			elseif message.enter == false then
+				-- Удаляем ноту из notes_inside, только если она не существует в игре
+				if not go.exists(message.other_id) then
+					self.notes_inside[message.other_id] = nil
+					print(string.format("Note exited trigger: note_id=%s, button_id=%s", tostring(message.other_id), tostring(go.get_id())))
+				end
+			end
+		end
+		-- Обработка нажатия на кнопку
+	elseif message_id == cursor.PRESSED then
+		-- Проверяем, что нажатие относится к группе "button"
+		if message.group == hash("button") then
+			print("Нажата кнопка: " .. tostring(go.get_id()))
+			-- Подсчёт активных нот в зоне триггера
+			local notes_count = 0
+			for _ in pairs(self.notes_inside) do
+				notes_count = notes_count + 1
+			end
+			-- Логируем все ноты в self.notes_inside
+			local notes_list = ""
+			for note_id, _ in pairs(self.notes_inside) do
+				notes_list = notes_list .. tostring(note_id) .. ", "
+			end
+			print(string.format("Нажатая кнопка: button_id=%s, notes_inside_count=%d, notes=[%s]", 
+			tostring(go.get_id()), notes_count, notes_list))
+			-- Очистка удалённых нот из self.notes_inside
+			for note_id, _ in pairs(self.notes_inside) do
+				if not go.exists(note_id) then
+					print("Очистка удаленной ноты: note_id=" .. tostring(note_id))
+					self.notes_inside[note_id] = nil
+				end
+			end
+			-- Получаем текущее время и позицию кнопки
+			local current_time = os.clock()
+			local button_pos = go.get_position()
+			-- Проверяем ноты в зоне триггера
+			for note_id, _ in pairs(self.notes_inside) do
+				if go.exists(note_id) then
+					-- Получаем позицию ноты
+					local note_pos = go.get_position(note_id)
+					print(string.format("Sending check_note_hit: note_id=%s, button_pos_x=%.2f, note_pos_y=%.2f, current_time=%.3f", 
+					tostring(note_id), button_pos.x, note_pos.y, current_time))
+					-- Отправляем сообщение для проверки попадания по ноте
+					msg.post("/game", "check_note_hit", {
+						note_id = note_id,
+						button_pos = button_pos,
+						current_time = current_time
+					})
+					return -- Обрабатываем только одну ноту за раз
+				else
+					print("Ноты не существует: note_id=" .. tostring(note_id))
+				end
+			end
+			-- Если нот в триггере нет, логируем это
+			if not next(self.notes_inside) then
+				print("Нет нот в триггере во время нажатия кнопки")
+			end
+		end
+		-- Обработка отпускания кнопки (ничего не делаем)
+	elseif message_id == cursor.RELEASED then
+		-- Ничего не делаем
+	end
+end

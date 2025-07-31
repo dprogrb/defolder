@@ -1,0 +1,100 @@
+script: "/main/gui/game.gui_script"
+fonts {
+  name: "default"
+  font: "/builtins/fonts/default.font"
+}
+textures {
+  name: "assets"
+  texture: "/main/assets.atlas"
+}
+nodes {
+  position {
+    x: 360.0
+    y: 540.0
+  }
+  scale {
+    x: 5.382066
+    y: 2.94503
+  }
+  type: TYPE_BOX
+  texture: "assets/note_3"
+  id: "back_in_menu"
+  inherit_alpha: true
+  size_mode: SIZE_MODE_AUTO
+}
+nodes {
+  scale {
+    x: 0.372907
+    y: 0.713022
+  }
+  size {
+    x: 200.0
+    y: 100.0
+  }
+  type: TYPE_TEXT
+  text: "Menu\n"
+  ""
+  font: "default"
+  id: "text"
+  parent: "back_in_menu"
+  inherit_alpha: true
+}
+nodes {
+  position {
+    x: 649.0
+    y: 1015.0
+  }
+  type: TYPE_TEMPLATE
+  id: "resume_pause_button"
+  inherit_alpha: true
+  template: "/main/gui/resume_pause_button.gui"
+}
+nodes {
+  type: TYPE_BOX
+  id: "resume_pause_button/resume_pause"
+  parent: "resume_pause_button"
+  template_node_child: true
+}
+nodes {
+  position {
+    x: 1.0
+    y: 1080.0
+  }
+  scale {
+    x: 3.0
+    y: 3.0
+  }
+  size {
+    x: 200.0
+    y: 100.0
+  }
+  type: TYPE_TEXT
+  text: "Score: "
+  font: "default"
+  id: "score_label"
+  pivot: PIVOT_NW
+  inherit_alpha: true
+}
+nodes {
+  position {
+    x: 1.0
+    y: 1017.0
+  }
+  scale {
+    x: 3.0
+    y: 3.0
+  }
+  size {
+    x: 200.0
+    y: 100.0
+  }
+  type: TYPE_TEXT
+  text: "Combo: \n"
+  ""
+  font: "default"
+  id: "combo_label"
+  pivot: PIVOT_NW
+  inherit_alpha: true
+}
+material: "/builtins/materials/gui.material"
+adjust_reference: ADJUST_REFERENCE_PARENT

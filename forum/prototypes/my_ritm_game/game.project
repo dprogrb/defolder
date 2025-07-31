@@ -1,0 +1,25 @@
+[bootstrap]
+main_collection = /main/controller.collectionc
+
+[script]
+shared_state = 1
+
+[display]
+width = 720
+height = 1080
+high_dpi = 1
+
+[android]
+input_method = HiddenInputField
+
+[html5]
+scale_mode = stretch
+
+[project]
+title = My_ritm_game
+custom_resources = /main/data/song_data.json
+dependencies#0 = https://github.com/britzl/defold-input/archive/master.zip
+
+[graphics]
+default_texture_mag_filter = nearest
+

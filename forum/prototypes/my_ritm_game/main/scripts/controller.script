@@ -1,0 +1,36 @@
+local GAME_STATE = require("main.modules.game_state")
+
+function init(self)
+	msg.post(".", "acquire_input_focus")
+	msg.post("#proxy_menu", "load")
+end
+
+function final(self)
+	msg.post(".", "release_input_focus")
+end
+
+function on_message(self, message_id, message, sender)
+	if message_id == hash("show_game") then
+		msg.post("#proxy_game", "load")
+		msg.post("#proxy_menu", "final")	
+		msg.post("#proxy_menu", "disable")
+		msg.post("#proxy_menu", "unload")
+		if GAME_STATE.get_state() ~= "playing" then
+			GAME_STATE.set_state("playing")
+		end
+	elseif message_id == hash("show_menu") then
+		msg.post("#proxy_menu", "load")
+		msg.post("#proxy_game", "final")	
+		msg.post("#proxy_game", "disable")
+		msg.post("#proxy_game", "unload")
+		if GAME_STATE.get_state() ~= "main_menu" then
+			GAME_STATE.set_state("main_menu")
+		end
+	elseif message_id == hash("proxy_loaded") then
+		print("proxy_loaded", sender)
+		msg.post(sender, "init")
+		msg.post(sender, "enable")
+	elseif message_id == hash("proxy_unloaded") then
+		print("proxy_unloaded", sender)
+	end
+end

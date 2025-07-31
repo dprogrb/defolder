@@ -1,0 +1,13 @@
+textures {
+  name: "assets"
+  texture: "/main/assets.atlas"
+}
+nodes {
+  type: TYPE_BOX
+  texture: "assets/pause"
+  id: "resume_pause"
+  inherit_alpha: true
+  size_mode: SIZE_MODE_AUTO
+}
+material: "/builtins/materials/gui.material"
+adjust_reference: ADJUST_REFERENCE_PARENT

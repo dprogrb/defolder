@@ -1,0 +1,25 @@
+script: "/main/gui/menu.gui_script"
+nodes {
+  position {
+    x: 360.0
+    y: 540.0
+  }
+  type: TYPE_TEMPLATE
+  id: "play_button"
+  inherit_alpha: true
+  template: "/main/gui/play_button.gui"
+}
+nodes {
+  type: TYPE_BOX
+  id: "play_button/button"
+  parent: "play_button"
+  template_node_child: true
+}
+nodes {
+  type: TYPE_TEXT
+  id: "play_button/play"
+  parent: "play_button/button"
+  template_node_child: true
+}
+material: "/builtins/materials/gui.material"
+adjust_reference: ADJUST_REFERENCE_PARENT
