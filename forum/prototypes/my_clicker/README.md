@@ -1,10 +1,10 @@
 
 
-# Прототип простого кликера на Defold
+# Прототип простого базового кликера на Defold
 
 Исходный код прототипа базового кликера на Defold.
 
-Создай его пошагово с помощью темы на форуме Defolder: https://defolder.com/t/sozdayom-prototip-muzykalnoj-igry-ritm-igra/70
+Создай его пошагово с помощью темы на форуме Defolder: https://defolder.com/t/sozdayom-prototip-bazovogo-klikera-na-defold/74
 
 Форум Defolder: https://defolder.com 
 
