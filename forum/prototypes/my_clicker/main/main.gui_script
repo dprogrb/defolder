@@ -1,0 +1,9 @@
+function init(self)
+	self.score = gui.get_node("score") -- получаем id ноды "score"
+end
+
+function on_message(self, message_id, message, sender)
+	if message_id == hash("change_score") then -- если придёт сообщение "change_score"
+		gui.set_text(self.score, "Score: " .. message.new_score) -- установим новое значение текстовой ноде "score"
+	end
+end

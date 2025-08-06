@@ -1,0 +1,14 @@
+local cursor = require("in.cursor") -- подключаем модуль curso
+
+function init(self)
+	self.current_score = 0 -- отвечает за количество очков
+	self.score_coefficient = 1 -- сколько дают очков за клик
+end
+
+function on_message(self, message_id, message, sender)
+	if message_id == cursor.CLICKED then -- если мы кликнули на player.go
+		self.current_score = self.current_score + self.score_coefficient -- увеличиваем кол-во очков
+		print("Текущее счёт: " .. self.current_score) -- выводим текущее кол-во очков
+		msg.post("/gui", "change_score", { new_score = self.current_score }) -- отправляем сообщение игровому объекут gui сообщение
+	end
+end
