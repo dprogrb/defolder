@@ -1,0 +1,20 @@
+[bootstrap]
+main_collection = /game/level/level.collectionc
+
+[script]
+shared_state = 1
+
+[display]
+width = 288
+height = 288
+high_dpi = 1
+
+[android]
+input_method = HiddenInputField
+
+[html5]
+scale_mode = stretch
+
+[project]
+title = my_tomb_of_the_mask
+
