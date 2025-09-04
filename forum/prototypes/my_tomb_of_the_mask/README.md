@@ -1,13 +1,14 @@
-# Welcome to Defold
+# Прототип механики перемещения как в Tomb of the Mask 
 
-This project was created from the "empty" project template.
+Исходный код прототипа перемещения как в Tomb of the Mask на Defold.
 
-The settings in ["game.project"](defold://open?path=/game.project) are all the default. A bootstrap empty ["main.collection"](defold://open?path=/main/main.collection) is included.
+Создай его пошагово с помощью темы на форуме Defolder: [https://defolder.com/t/sozdayom-prototip-muzykalnoj-igry-ritm-igra/70](https://defolder.com/t/sozdayom-prototip-mehaniki-peremeshheniya-kak-v-tomb-of-the-mask/83)
 
-Check out [the documentation pages](https://defold.com/learn) for examples, tutorials, manuals and API docs.
+Форум Defolder: https://defolder.com 
 
-If you run into trouble, help is available in [our forum](https://forum.defold.com).
+Чат Defolder в Telegram: https://defolder.com/invites/9WHNhdS2FJ](https://t.me/+19hr867nfpZkYjEy)  
 
-Happy Defolding!
+Новостной telegram-канал Defolder: https://t.me/DefoldNews  
+
 
 ---
