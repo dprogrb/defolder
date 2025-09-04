@@ -2,7 +2,7 @@
 
 Исходный код прототипа перемещения как в Tomb of the Mask на Defold.
 
-Создай его пошагово с помощью темы на форуме Defolder: [https://defolder.com/t/sozdayom-prototip-muzykalnoj-igry-ritm-igra/70](https://defolder.com/t/sozdayom-prototip-mehaniki-peremeshheniya-kak-v-tomb-of-the-mask/83)
+Создай его пошагово с помощью темы на форуме Defolder: https://defolder.com/t/sozdayom-prototip-mehaniki-peremeshheniya-kak-v-tomb-of-the-mask/83
 
 Форум Defolder: https://defolder.com 
 
