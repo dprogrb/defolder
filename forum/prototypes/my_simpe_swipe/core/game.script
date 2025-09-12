@@ -1,0 +1,90 @@
+local CARD = require("core.card.card")
+
+function init(self)
+	-- Запрашиваем захват фокуса ввода для текущего game object, чтобы получать события ввода
+	msg.post("", "acquire_input_focus")
+	-- Инициализируем начальное значение для координаты X начала свайпа (nil — свайп не начался)
+	self.start_x = nil
+
+	-- Сохраняем URL объекта карточки для удобства обращения к нему позже
+	self.go_url = msg.url("/card")
+
+	-- Обновляем визуальные элементы карточки: спрайт, описание и заголовок с использованием модуля CARD
+	CARD.update_sprite(self.go_url)
+	CARD.update_description(self.go_url)
+	CARD.update_title(self.go_url)
+end
+
+
+function final(self)
+	-- Add finalization code here
+	-- Learn more: https://defold.com/manuals/script/
+	-- Remove this function if not needed
+end
+
+function update(self, dt)
+	-- Add update code here
+	-- Learn more: https://defold.com/manuals/script/
+	-- Remove this function if not needed
+end
+
+function fixed_update(self, dt)
+	-- This function is called if 'Fixed Update Frequency' is enabled in the Engine section of game.project
+	-- Can be coupled with fixed updates of the physics simulation if 'Use Fixed Timestep' is enabled in
+	-- Physics section of game.project
+	-- Add update code here
+	-- Learn more: https://defold.com/manuals/script/
+	-- Remove this function if not needed
+end
+
+function on_message(self, message_id, message, sender)
+	-- Add message-handling code here
+	-- Learn more: https://defold.com/manuals/message-passing/
+	-- Remove this function if not needed
+end
+
+-- Функция обработки ввода пользователя
+function on_input(self, action_id, action)
+	-- Проверяем, что событие ввода связано с касанием экрана
+	if action_id == hash("touch") then
+		-- Если палец только что коснулся экрана (начало касания)
+		if action.pressed then
+			-- Запоминаем координату X начального касания для определения свайпа
+			self.start_x = action.x
+			-- Если палец отпущен и есть сохранённая начальная точка касания
+		elseif action.released and self.start_x then
+			-- Вычисляем смещение по оси X от начала касания до текущей позиции отпуска
+			local dx = action.x - self.start_x
+			-- Порог смещения для распознавания действия свайпа
+			local threshold = 30
+			-- Проверяем, превышает ли абсолютное смещение порог
+			if math.abs(dx) > threshold then
+				-- Если смещение вправо (положительное значение)
+				if dx > 0 then
+					print("Swipe right")
+					-- Вызываем функцию смены карты вправо
+					CARD.swipe_change("right")
+				else
+					print("Swipe left")
+					-- Если смещение влево (отрицательное значение)
+					-- Вызываем функцию смены карты влево
+					CARD.swipe_change("left") 
+				end
+				-- Сбрасываем начальную точку касания для следующего события
+				self.start_x = nil
+				-- Обновляем внешнее состояние карточки: спрайт, описание, заголовок
+				CARD.update_sprite(self.go_url)
+				CARD.update_description(self.go_url)
+				CARD.update_title(self.go_url)
+			end
+		end
+	end
+end
+
+
+
+function on_reload(self)
+	-- Add reload-handling code here
+	-- Learn more: https://defold.com/manuals/hot-reload/
+	-- Remove this function if not needed
+end

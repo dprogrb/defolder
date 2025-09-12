@@ -1,0 +1,21 @@
+[bootstrap]
+main_collection = /main/main.collectionc
+
+[script]
+shared_state = 1
+
+[display]
+width = 360
+height = 640
+high_dpi = 1
+
+[android]
+input_method = HiddenInputField
+
+[html5]
+scale_mode = stretch
+
+[project]
+title = my_simple_swipe
+custom_resources = /assets/json/card_data.json
+

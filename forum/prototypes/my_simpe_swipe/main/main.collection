@@ -1,0 +1,19 @@
+name: "main"
+instances {
+  id: "card"
+  prototype: "/core/card/card.go"
+  position {
+    x: 180.0
+    y: 320.0
+  }
+}
+scale_along_z: 0
+embedded_instances {
+  id: "game"
+  children: "card"
+  data: "components {\n"
+  "  id: \"game\"\n"
+  "  component: \"/core/game.script\"\n"
+  "}\n"
+  ""
+}
