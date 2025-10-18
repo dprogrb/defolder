@@ -1,13 +1,3 @@
-# Welcome to Defold
+Это готовый проект "Знакомство с Монархом в Defold. Переходы в главное меню/игру/игровая пауза(попап)" на форуме defolder.com: https://defolder.com/t/znakomstvo-s-monarhom-v-defold-perehody-v-glavnoe-menyu-igru-igrovaya-pauza-popap/100
 
-This project was created from the "empty" project template.
-
-The settings in ["game.project"](defold://open?path=/game.project) are all the default. A bootstrap empty ["main.collection"](defold://open?path=/main/main.collection) is included.
-
-Check out [the documentation pages](https://defold.com/learn) for examples, tutorials, manuals and API docs.
-
-If you run into trouble, help is available in [our forum](https://forum.defold.com).
-
-Happy Defolding!
-
----
+Исходный проект: https://github.com/dprogrb/defolder/tree/main/forum/lessons/monarch/monarch_1
