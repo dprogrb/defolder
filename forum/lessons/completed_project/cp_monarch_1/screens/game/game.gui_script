@@ -1,0 +1,12 @@
+local monarch = require "monarch.monarch"
+
+function init(self)
+    msg.post(".", "acquire_input_focus")
+end
+
+
+function on_input(self, action_id, action)
+    if action_id == hash("esc") and action.pressed then
+        monarch.show(hash("game_pause"), {no_stack = true})
+    end
+end

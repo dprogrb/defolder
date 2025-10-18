@@ -1,0 +1,54 @@
+script: "/screens/main_menu/main_menu.gui_script"
+nodes {
+  position {
+    x: 480.0
+    y: 320.0
+  }
+  size {
+    x: 960.0
+    y: 640.0
+  }
+  color {
+    x: 0.302
+    y: 0.302
+    z: 0.302
+  }
+  type: TYPE_BOX
+  id: "root"
+  adjust_mode: ADJUST_MODE_STRETCH
+  inherit_alpha: true
+  size_mode: SIZE_MODE_AUTO
+}
+nodes {
+  type: TYPE_TEMPLATE
+  id: "button_start"
+  parent: "root"
+  inherit_alpha: true
+  template: "/gui/templates/button.gui"
+}
+nodes {
+  color {
+    x: 0.102
+    y: 0.102
+    z: 0.102
+  }
+  type: TYPE_BOX
+  id: "button_start/root"
+  parent: "button_start"
+  overridden_fields: 5
+  template_node_child: true
+}
+nodes {
+  type: TYPE_BOX
+  id: "button_start/background"
+  parent: "button_start/root"
+  template_node_child: true
+}
+nodes {
+  type: TYPE_TEXT
+  id: "button_start/text"
+  parent: "button_start/root"
+  template_node_child: true
+}
+material: "/builtins/materials/gui.material"
+adjust_reference: ADJUST_REFERENCE_PARENT

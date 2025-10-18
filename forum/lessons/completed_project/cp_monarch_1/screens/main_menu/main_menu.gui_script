@@ -1,0 +1,42 @@
+-- main_menu.gui_script
+
+local monarch = require "monarch.monarch"
+
+function init(self)
+    self.button_start = gui.get_node("button_start/root")  -- root кнопки
+    self.button_text = gui.get_node("button_start/text") -- text кнопки
+
+    -- Настраиваем текст кнопки
+    gui.set_text(self.button_text, "START")
+
+    -- Запрашиваем input focus
+    msg.post(".", "acquire_input_focus")
+end
+
+
+function on_input(self, action_id, action)
+    if action_id == hash("touch") then
+        -- Проверяем клик по кнопке
+        if gui.pick_node(self.button_start, action.x, action.y) then
+
+            if action.pressed then
+                gui.set_scale(self.button_start, vmath.vector3(0.97, 0.97, 1))
+            elseif action.released then
+                --print("Button released")
+                gui.animate(self.button_start, gui.PROP_SCALE, 
+                vmath.vector3(1.03, 1.03, 1), 
+                gui.EASING_INOUTQUAD,
+                0.3, 0, 
+                function()
+                    -- Вернем масштаб после анимации и переключим окно
+                    gui.set_scale(self.button_start, vmath.vector3(1, 1, 1))
+                    monarch.show(hash("game"))
+                end,
+                gui.PLAYBACK_ONCE_PINGPONG
+            )
+            end
+            return true  -- Потребляем input
+        end
+    end
+
+end

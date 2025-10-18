@@ -1,0 +1,50 @@
+script: "/screens/game/game.gui_script"
+nodes {
+  position {
+    x: 480.0
+    y: 320.0
+  }
+  size {
+    x: 960.0
+    y: 640.0
+  }
+  type: TYPE_BOX
+  id: "root"
+  adjust_mode: ADJUST_MODE_STRETCH
+  inherit_alpha: true
+  size_mode: SIZE_MODE_AUTO
+  visible: false
+}
+nodes {
+  type: TYPE_TEMPLATE
+  id: "button_game"
+  parent: "root"
+  inherit_alpha: true
+  template: "/gui/templates/button.gui"
+}
+nodes {
+  type: TYPE_BOX
+  id: "button_game/root"
+  parent: "button_game"
+  overridden_fields: 46
+  template_node_child: true
+}
+nodes {
+  type: TYPE_BOX
+  id: "button_game/background"
+  parent: "button_game/root"
+  overridden_fields: 46
+  template_node_child: true
+  visible: false
+}
+nodes {
+  type: TYPE_TEXT
+  text: "Game"
+  id: "button_game/text"
+  parent: "button_game/root"
+  overridden_fields: 5
+  overridden_fields: 8
+  template_node_child: true
+}
+material: "/builtins/materials/gui.material"
+adjust_reference: ADJUST_REFERENCE_PARENT

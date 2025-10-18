@@ -1,0 +1,10 @@
+name: "game_pause"
+scale_along_z: 0
+embedded_instances {
+  id: "monarch"
+  data: "components {\n"
+  "  id: \"game_pause\"\n"
+  "  component: \"/screens/popups/game_pause/game_pause.gui\"\n"
+  "}\n"
+  ""
+}

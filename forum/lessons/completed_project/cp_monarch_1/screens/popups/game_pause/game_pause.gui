@@ -1,0 +1,129 @@
+script: "/screens/popups/game_pause/game_pause.gui_script"
+fonts {
+  name: "default"
+  font: "/builtins/fonts/default.font"
+}
+nodes {
+  position {
+    x: 480.0
+    y: 320.0
+  }
+  size {
+    x: 960.0
+    y: 640.0
+  }
+  color {
+    x: 0.129
+    y: 0.141
+    z: 0.157
+  }
+  type: TYPE_BOX
+  id: "root"
+  adjust_mode: ADJUST_MODE_STRETCH
+  inherit_alpha: true
+  size_mode: SIZE_MODE_AUTO
+  visible: false
+}
+nodes {
+  position {
+    y: -16.0
+  }
+  size {
+    x: 250.0
+    y: 300.0
+  }
+  color {
+    x: 0.129
+    y: 0.141
+    z: 0.157
+  }
+  type: TYPE_BOX
+  id: "panel"
+  adjust_mode: ADJUST_MODE_STRETCH
+  parent: "root"
+  inherit_alpha: true
+  size_mode: SIZE_MODE_AUTO
+}
+nodes {
+  position {
+    y: 16.0
+  }
+  type: TYPE_TEMPLATE
+  id: "button_continue"
+  parent: "panel"
+  inherit_alpha: true
+  template: "/gui/templates/button.gui"
+}
+nodes {
+  position {
+    y: 13.0
+  }
+  type: TYPE_BOX
+  id: "button_continue/root"
+  parent: "button_continue"
+  overridden_fields: 1
+  template_node_child: true
+}
+nodes {
+  type: TYPE_BOX
+  id: "button_continue/background"
+  parent: "button_continue/root"
+  template_node_child: true
+}
+nodes {
+  type: TYPE_TEXT
+  text: "CONTINUE\n"
+  ""
+  id: "button_continue/text"
+  parent: "button_continue/root"
+  overridden_fields: 8
+  template_node_child: true
+}
+nodes {
+  position {
+    y: -82.0
+  }
+  type: TYPE_TEMPLATE
+  id: "button_to_menu"
+  parent: "panel"
+  inherit_alpha: true
+  template: "/gui/templates/button.gui"
+}
+nodes {
+  type: TYPE_BOX
+  id: "button_to_menu/root"
+  parent: "button_to_menu"
+  template_node_child: true
+}
+nodes {
+  type: TYPE_BOX
+  id: "button_to_menu/background"
+  parent: "button_to_menu/root"
+  template_node_child: true
+}
+nodes {
+  type: TYPE_TEXT
+  text: "MENU"
+  id: "button_to_menu/text"
+  parent: "button_to_menu/root"
+  overridden_fields: 8
+  template_node_child: true
+}
+nodes {
+  position {
+    y: 124.0
+  }
+  size {
+    x: 200.0
+    y: 100.0
+  }
+  type: TYPE_TEXT
+  text: "PAUSE\n"
+  ""
+  font: "default"
+  id: "text"
+  parent: "panel"
+  inherit_alpha: true
+}
+material: "/builtins/materials/gui.material"
+adjust_reference: ADJUST_REFERENCE_PARENT

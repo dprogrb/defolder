@@ -1,0 +1,15 @@
+-- controller.script
+
+local monarch = require "monarch.monarch"
+
+function init(self)
+	msg.post(".", "acquire_input_focus")
+	msg.post("#", "start_main_menu")
+
+end
+
+function on_message(self, message_id, message, sender)
+	if message_id == hash("start_main_menu") then
+		monarch.show(hash("main_menu"))
+	end
+end
