@@ -25,90 +25,90 @@
 
 У вас должно получиться вот так:
 
-<img src="/lesson/png/2.png">
+<img src="./lesson/png/2.png">
 
 
 Кликните по `game.collection` и **collection**, задайте имя **game**:
 
-<img src="/lesson/png/3.png">
+<img src="./lesson/png/3.png">
 
 Для других коллекций сделайте аналогичные действия:
 
-<img src="/lesson/png/4.png">
+<img src="./lesson/png/4.png">
 
-<img src="/lesson/png/5.png">
+<img src="./lesson/png/5.png">
 
 Создадим GUI макеты.
 
 Для начала перейдём в `game.project` и узнаем заданные настройки ширины и высоты экрана:
-<img src="/lesson/png/6.png">
+<img src="./lesson/png/6.png">
 
 Теперь создадим корневой узел для макета в `main_menu.gui` (в следующий раз я не буду упоминать это действие):
 
-<img src="/lesson/png/7.png">
+<img src="./lesson/png/7.png">
 
 Дадим её имя "**root**" и выставим такие значения:
 
-<img src="/lesson/png/8.png">
+<img src="./lesson/png/8.png">
 
 Посмотрите, теперь наш корневой узел расположен по всему экрану:
 
-<img src="/lesson/png/9.png">
+<img src="./lesson/png/9.png">
 
 Это необязательно, но можно ещё установить и **Stretch** в **Adjust Mode**:
 
-<img src="/lesson/png/10.png">
+<img src="./lesson/png/10.png">
 
 Теперь в наш **root** поместим шаблон кнопки из папки `gui/templates/button.gui`:
 
-<img src="/lesson/png/11.png">
+<img src="./lesson/png/11.png">
 
-<img src="/lesson/png/12.png">
+<img src="./lesson/png/12.png">
 
 Изменим ей **id** на **button_start** (для удобства):
 
-<img src="/lesson/png/13.png">
+<img src="./lesson/png/13.png">
 
 
 Создадим в папке **controller** скрипт `controller.script`:
 
-<img src="/lesson/png/14.png">
+<img src="./lesson/png/14.png">
 
-<img src="/lesson/png/15.png">
+<img src="./lesson/png/15.png">
 
 Перейдём в `controller.collection` и создадим там игровой объект и затем переименуем его на **controller**:
 
-<img src="/lesson/png/16.png">
+<img src="./lesson/png/16.png">
 
-<img src="/lesson/png/17.png">
+<img src="./lesson/png/17.png">
 
 Добавим компонент `controller.script`:
 
-<img src="/lesson/png/18.png">
+<img src="./lesson/png/18.png">
 
-<img src="/lesson/png/19.png">
+<img src="./lesson/png/19.png">
 
 В этой же коллекции controller.collection создадим игровой объект с id **main_menu**:
 
-<img src="/lesson/png/20.png">
+<img src="./lesson/png/20.png">
 
 В этом игровом объекте мы создадим компонент **Collection Proxy** (Прокси Коллекцию):
 
-<img src="/lesson/png/21.png">
+<img src="./lesson/png/21.png">
 
 В качестве коллекции в этом компоненте укажем коллекцию `main_menu.collection`:
 
-<img src="/lesson/png/22.png">
+<img src="./lesson/png/22.png">
 
-<img src="/lesson/png/23.png">
+<img src="./lesson/png/23.png">
 
 Переименуем её на `main_menu_proxy` (для удобства):
 
-<img src="/lesson/png/24.png">
+<img src="./lesson/png/24.png">
 
 Тем же способом, которым мы добавили в игровой объект компонент `controller.script`, добавим скрипт монарха **screen_proxy**:
 
-<img src="/lesson/png/25.png">
+<img src="./lesson/png/25.png">
 
 В свойствах этого скрипта мы внесём изменения.
 
@@ -116,7 +116,7 @@
 
 В параметр **screen_id** зададим значения **main_menu**. С помощью этого имени мы будем обращаться к этой прокси при работе с API Монарха.
 
-<img src="/lesson/png/26.png">
+<img src="./lesson/png/26.png">
 
 Перейдём в `controller.script` и вставим такой код:
 ~~~ LUA
@@ -142,7 +142,7 @@ end
 
 Соберем и запустим проект `(ctrl + B)`:
 
-<img src="/lesson/png/27.png">
+<img src="./lesson/png/27.png">
 
 Постараюсь объяснить по простому:
 1.  Делаем возможным использовать код, расположенный в этой папке:
@@ -153,7 +153,7 @@ end
 5.  Функция для обработки сообщений, поступающих в этот скрипт (у нас это `controller.script`).
 6. Проверяем, если пришло сообщение с хэшем `hash("start_main_menu")`.
 7. Используем функцию из файла monarch.lua (модуля), чтобы показать сцену main_menu (мы указывали в screen_proxy screen_id):
-<img src="/lesson/png/29.png">
+<img src="./lesson/png/29.png">
 
 Если привести аналогию с человеком.
 Человек спит.
@@ -162,42 +162,42 @@ end
 
 Если вы зайдёте в `monarch.lua`, то увидите созданную там функцию **show**, которая позволяет открыть прокси-коллекцию:
 
-<img src="/lesson/png/30.png">
+<img src="./lesson/png/30.png">
 
 Давайте внесём изменения в `main_menu.gui`, изменим цвет корневому узлу:
 
-<img src="/lesson/png/31.png">
+<img src="./lesson/png/31.png">
 
 Теперь сохраним проект и снова его запустим:
 
-<img src="/lesson/png/32.png">
+<img src="./lesson/png/32.png">
 
 Вы также можете изменить текст для текстового узла кнопки здесь:
 
-<img src="/lesson/png/33.png">
+<img src="./lesson/png/33.png">
 
 Скрывать узлы с помощью свойства параметра:
 
-<img src="/lesson/png/34.png">
+<img src="./lesson/png/34.png">
 
 
 Теперь создайте подобным образом другие сцены: **game**, **game_pause**:
 
 Макет сцены **game**:
 
-<img src="/lesson/png/35.png">
+<img src="./lesson/png/35.png">
 
-<img src="/lesson/png/36.png">
+<img src="./lesson/png/36.png">
 
 Макет `game_pause.gui`:
 
-<img src="/lesson/png/37.png">
+<img src="./lesson/png/37.png">
 
-<img src="/lesson/png/38.png">
+<img src="./lesson/png/38.png">
 
 В `controller.collection` создайте игровые объекты, содержащие прокси-коллекции и скрипт screen.proxy для остальных сцен:
 
-<img src="/lesson/png/39.png">
+<img src="./lesson/png/39.png">
 
 Перейдём в `main_menu.gui_script` и вставим такой код:
 ~~~ Lua
@@ -253,13 +253,13 @@ end
 9. Прекращай обрабатывать этот **actions(touch)**.
 
 После клика на кнопку **"START"** вы переходите на коллекцию `game.collection`:
-<img src="/lesson/gif/gif_2.gif">
+<img src="./lesson/gif/gif_2.gif">
 
 Теперь перейдём в файл `input_binding` и добавим новую привязку ввода:
 
-<img src="/lesson/png/40.png">
+<img src="./lesson/png/40.png">
 
-<img src="/lesson/png/41.png">
+<img src="./lesson/png/41.png">
 
 В game.gui_script добавим такой код:
 ~~~ Lua
@@ -345,5 +345,5 @@ end
 2. `monarch.show(hash("main_menu"), { clear = true })` удалит все экраны из стека и покажет `main_menu`.
    
 Сохраняем и запускаем проект:
-<img src="/lesson/gif/gif_4.gif">
+<img src="./lesson/gif/gif_4.gif">
 
