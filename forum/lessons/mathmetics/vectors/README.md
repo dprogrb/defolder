@@ -1,3 +1,6 @@
+Векторы. Движение игрового объекта
+---
+
 Прежде чем начать урок, рекомендую ознакомиться с этим постом: https://defolder.com/t/matematika-v-defold-chast-1-dejstviya-s-vektorami/42?u=d_bl1n
 
 В нём достаточно хорошо описана тема Векторов.
@@ -119,7 +122,7 @@ end
 
 Давайте заставим нашу точку перемещаться по направлению вправо-влево:
 
-![картинка1](/images/right_left.gif)
+![картинка1](./images/right_left.gif)
 
 Напишите такой код в ["vector.scripts"](defold://open?path=/main/vector.scripts):
 ``` Lua
@@ -191,7 +194,7 @@ go.set_position(self.pos)
 ##### Задача 1:
 Попробуйте заставить двигаться точку "вверх-вниз".
 
-![картинка1](/images/up_down.gif)
+![картинка1](./images/up_down.gif)
 
 ##### Решение:
 ``` Lua
