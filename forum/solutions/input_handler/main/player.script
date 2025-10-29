@@ -1,55 +1,20 @@
--- Подключение модуля для обработки пользовательского ввода
 local input = require("main.input_handler")
+local system_movement = require("main.system_movement")
 
--- Порог чувствительности движения (фильтр микродвижений джойстика)
-local THRESHOLD = 0.05
 
--- Инициализация персонажа
 function init(self)
-	-- Скорость движения в пикселях за секунду
 	self.speed = 200
-
-	-- Запрос фокуса ввода от движка Defold
-	-- После этого данный объект будет получать все нажатия клавиш
+	self.url_player = "/player"
 	msg.post(".", "acquire_input_focus")
 end
 
--- Обработчик ввода (вызывается при любом нажатии/отпускании клавиш)
+
 function on_input(self, action_id, action)
-	-- Передаем сырые данные о нажатиях в input_handler для обработки
-	-- action_id = какая кнопка (например, hash("w"))
-	-- action = информация о событии (pressed/released/value)
 	input.process_input(action_id, action)
+	system_movement.compute_raw_movement(input.get_key_state_table())
 end
 
--- Игровой цикл (вызывается каждый кадр)
+
 function update(self, dt)
-	-- dt = время с прошлого кадра (обычно ~0.016 сек для 60 FPS)
-
-	-- Обновляем input_handler: вычисляем плавное движение на основе зажатых клавиш
-	input.update(dt)
-
-	-- Получаем финальный вектор движения (уже сглаженный)
-	-- mv = направление движения, например (0.5, 0.7, 0) для движения вправо-вверх
-	local mv = input.get_movement()
-
-	-- Проверяем, действительно ли игрок двигается
-	-- vmath.length(mv) = длина вектора движения
-	-- Если больше THRESHOLD (0.05) - считаем что движемся, иначе стоим
-	local moving = vmath.length(mv) > THRESHOLD
-
-	-- Если есть движение - обновляем позицию персонажа
-	if moving then
-		-- Получаем текущую позицию персонажа в мире
-		local pos = go.get_position()
-
-		-- Вычисляем новую позицию по формуле:
-		-- новая_позиция = текущая + направление * скорость * время_кадра
-		-- mv * self.speed * dt = смещение за текущий кадр
-		go.set_position(pos + mv * self.speed * dt)
-	end
-
-	-- Сбрасываем одноразовые события (например, нажатия pause, interact)
-	-- Чтобы они срабатывали только один раз за нажатие, а не каждый кадр
-	input.reset_actions()
+	system_movement.update(self, dt)
 end
