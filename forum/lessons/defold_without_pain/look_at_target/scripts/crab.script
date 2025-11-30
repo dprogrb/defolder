@@ -1,0 +1,15 @@
+-- pendulum.script
+function init(self)
+	self.time = 0
+	self.amplitude = 45      -- максимальный угол (±45°)
+	self.frequency = 2       -- колебаний в секунду
+end
+
+function update(self, dt)
+	self.time = self.time + dt
+
+	-- Вычисляем угол с помощью синуса (гладкое колебание)
+	local angle = self.amplitude * math.sin(2 * math.pi * self.frequency * self.time)
+
+	go.set(".", "euler.z", angle)
+end

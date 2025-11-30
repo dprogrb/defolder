@@ -1,0 +1,14 @@
+name: "main"
+instances {
+  id: "crab"
+  prototype: "/main/crab.go"
+  position {
+    x: 480.0
+    y: 320.0
+  }
+  scale3 {
+    x: 4.0
+    y: 4.0
+  }
+}
+scale_along_z: 0

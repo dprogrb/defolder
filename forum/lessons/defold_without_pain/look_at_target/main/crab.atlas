@@ -1,0 +1,21 @@
+animations {
+  id: "idle"
+  images {
+    image: "/images/character/Crab1.png"
+  }
+  images {
+    image: "/images/character/Crab2.png"
+  }
+  images {
+    image: "/images/character/Crab3.png"
+  }
+  images {
+    image: "/images/character/Crab4.png"
+  }
+  images {
+    image: "/images/character/Crab5.png"
+  }
+  playback: PLAYBACK_LOOP_FORWARD
+  fps: 7
+}
+extrude_borders: 2

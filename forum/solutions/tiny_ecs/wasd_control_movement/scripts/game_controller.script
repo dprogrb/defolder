@@ -1,0 +1,18 @@
+local GameController = require("modules.game_controller")
+
+function init(self)
+	print("Position before:", go.get(".", "position"))
+	go.set(".", "position", vmath.vector3(100, 100, 0))
+
+	print("Position after:", go.get(".", "position"))
+	self.player = GameController.new()
+	msg.post(".", "acquire_input_focus")
+end
+
+function update(self, dt)
+	self.player:update(dt)
+end
+
+function on_input(self, action_id, action)
+	self.player:on_input(action_id, action)
+end

@@ -1,0 +1,6 @@
+name: "main"
+instances {
+  id: "spawner"
+  prototype: "/spawner/spawner.go"
+}
+scale_along_z: 0
