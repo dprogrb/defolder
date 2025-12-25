@@ -1,0 +1,112 @@
+script: "/scenese/game_settings/game_settings.gui_script"
+fonts {
+  name: "default"
+  font: "/builtins/fonts/default.font"
+}
+nodes {
+  position {
+    x: 480.0
+    y: 320.0
+  }
+  type: TYPE_BOX
+  id: "root"
+  inherit_alpha: true
+  size_mode: SIZE_MODE_AUTO
+}
+nodes {
+  position {
+    x: 1.0
+    y: 46.0
+  }
+  size {
+    x: 160.0
+    y: 40.0
+  }
+  type: TYPE_BOX
+  id: "button_options_1"
+  parent: "root"
+  inherit_alpha: true
+  alpha: 0.8
+}
+nodes {
+  size {
+    x: 200.0
+    y: 100.0
+  }
+  color {
+    x: 0.6
+    y: 0.0
+    z: 0.0
+  }
+  type: TYPE_TEXT
+  text: "OPTIONS 1"
+  font: "default"
+  id: "text_options_1"
+  parent: "button_options_1"
+  inherit_alpha: true
+}
+nodes {
+  position {
+    x: 1.0
+  }
+  size {
+    x: 160.0
+    y: 40.0
+  }
+  type: TYPE_BOX
+  id: "button_options_2"
+  parent: "root"
+  inherit_alpha: true
+  alpha: 0.8
+}
+nodes {
+  size {
+    x: 200.0
+    y: 100.0
+  }
+  color {
+    x: 0.6
+    y: 0.0
+    z: 0.0
+  }
+  type: TYPE_TEXT
+  text: "OPTIONS 2"
+  font: "default"
+  id: "text_options_2"
+  parent: "button_options_2"
+  inherit_alpha: true
+}
+nodes {
+  position {
+    x: 1.0
+    y: -46.0
+  }
+  size {
+    x: 160.0
+    y: 40.0
+  }
+  type: TYPE_BOX
+  id: "button_back"
+  parent: "root"
+  inherit_alpha: true
+  alpha: 0.8
+}
+nodes {
+  size {
+    x: 200.0
+    y: 100.0
+  }
+  color {
+    x: 0.6
+    y: 0.0
+    z: 0.0
+  }
+  type: TYPE_TEXT
+  text: "BACK"
+  font: "default"
+  id: "text_back"
+  parent: "button_back"
+  inherit_alpha: true
+}
+material: "/builtins/materials/gui.material"
+adjust_reference: ADJUST_REFERENCE_PARENT

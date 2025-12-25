@@ -1,0 +1,144 @@
+script: "/scenese/pause/pause.gui_script"
+fonts {
+  name: "default"
+  font: "/builtins/fonts/default.font"
+}
+nodes {
+  position {
+    x: 480.0
+    y: 320.0
+  }
+  type: TYPE_BOX
+  id: "root"
+  inherit_alpha: true
+  size_mode: SIZE_MODE_AUTO
+}
+nodes {
+  position {
+    x: 1.0
+    y: 46.0
+  }
+  size {
+    x: 160.0
+    y: 40.0
+  }
+  type: TYPE_BOX
+  id: "button_return_game"
+  parent: "root"
+  inherit_alpha: true
+  alpha: 0.8
+}
+nodes {
+  size {
+    x: 200.0
+    y: 100.0
+  }
+  color {
+    x: 0.6
+    y: 0.0
+    z: 0.0
+  }
+  type: TYPE_TEXT
+  text: "RETURN GAME"
+  font: "default"
+  id: "text_play"
+  parent: "button_return_game"
+  inherit_alpha: true
+}
+nodes {
+  position {
+    x: 1.0
+    y: -47.0
+  }
+  size {
+    x: 160.0
+    y: 40.0
+  }
+  type: TYPE_BOX
+  id: "button_settings"
+  parent: "root"
+  inherit_alpha: true
+  alpha: 0.8
+}
+nodes {
+  size {
+    x: 200.0
+    y: 100.0
+  }
+  color {
+    x: 0.6
+    y: 0.0
+    z: 0.0
+  }
+  type: TYPE_TEXT
+  text: "SETTINGS"
+  font: "default"
+  id: "text_settings"
+  parent: "button_settings"
+  inherit_alpha: true
+}
+nodes {
+  position {
+    x: 1.0
+    y: -93.0
+  }
+  size {
+    x: 160.0
+    y: 40.0
+  }
+  type: TYPE_BOX
+  id: "button_exit"
+  parent: "root"
+  inherit_alpha: true
+  alpha: 0.8
+}
+nodes {
+  size {
+    x: 200.0
+    y: 100.0
+  }
+  color {
+    x: 0.6
+    y: 0.0
+    z: 0.0
+  }
+  type: TYPE_TEXT
+  text: "EXIT"
+  font: "default"
+  id: "text_exit"
+  parent: "button_exit"
+  inherit_alpha: true
+}
+nodes {
+  position {
+    x: 1.0
+  }
+  size {
+    x: 160.0
+    y: 40.0
+  }
+  type: TYPE_BOX
+  id: "button_main_menu"
+  parent: "root"
+  inherit_alpha: true
+  alpha: 0.8
+}
+nodes {
+  size {
+    x: 200.0
+    y: 100.0
+  }
+  color {
+    x: 0.6
+    y: 0.0
+    z: 0.0
+  }
+  type: TYPE_TEXT
+  text: "MAIN MENU"
+  font: "default"
+  id: "text_main_menu"
+  parent: "button_main_menu"
+  inherit_alpha: true
+}
+material: "/builtins/materials/gui.material"
+adjust_reference: ADJUST_REFERENCE_PARENT

@@ -1,0 +1,7 @@
+function init(self)
+    self.my_predicate = render.predicate({hash("tile")})
+end
+
+function update(self)
+    render.draw(self.my_predicate)
+end

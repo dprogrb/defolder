@@ -1,0 +1,10 @@
+name: "m"
+scale_along_z: 0
+embedded_instances {
+  id: "monarch"
+  data: "components {\n"
+  "  id: \"menu\"\n"
+  "  component: \"/scenese/menu/menu.gui\"\n"
+  "}\n"
+  ""
+}

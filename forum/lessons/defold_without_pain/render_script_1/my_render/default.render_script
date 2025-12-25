@@ -1,0 +1,8 @@
+function init(self)
+    self.clear_color = vmath.vector4(1, 0.5, 0, 0)
+    
+end
+
+function update(self)
+    render.clear({[render.BUFFER_COLOR_BIT] = self.clear_color})
+end

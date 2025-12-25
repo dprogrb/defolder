@@ -1,0 +1,46 @@
+local GSFSM = require ("modules.game_statemachine")
+local monarch = require ("monarch.monarch") 
+
+function init(self)
+	print("Current STATE: " ..GSFSM.machine.current)
+	msg.post(".", "acquire_input_focus")
+	msg.post("#", "set_state_menu")
+end
+
+function on_input(self, action_id, action)
+	-- if action_id == hash("menu") and action.released then
+	-- 	msg.post("#", "set_state_menu")
+	-- elseif action_id == hash("settings") and action.released then
+	-- 	msg.post("#", "set_state_settings")
+	-- elseif action_id == hash("game") and action.released then
+	-- 	msg.post("#", "set_state_game")
+	-- elseif action_id == hash("pause") and action.released then
+	-- 	msg.post("#", "set_state_pause")
+	-- elseif action_id == hash("game_over") and action.released then
+	-- 	msg.post("#", "set_state_game_over")
+	-- end
+end
+
+function on_message(self, message_id, message, sender)
+	if message_id == hash("set_state_menu") then
+		GSFSM.machine:menu()
+		print("Current STATE: " ..GSFSM.machine.current)
+		monarch.show(hash("menu"))
+	elseif message_id == hash("set_state_game") then
+		GSFSM.machine:game()
+		print("Current STATE: " ..GSFSM.machine.current)
+		monarch.show(hash("game"))
+	elseif message_id == hash("set_state_game_over") then
+		GSFSM.machine:game_over()
+		print("Current STATE: " ..GSFSM.machine.current)
+		monarch.show(hash("game"))
+	elseif message_id == hash("set_state_settings") then
+		GSFSM.machine:settings()
+		print("Current STATE: " ..GSFSM.machine.current)
+		monarch.show(hash("game"))
+	elseif message_id == hash("set_state_pause") then
+		GSFSM.machine:pause()
+		print("Current STATE: " ..GSFSM.machine.current)
+		monarch.show(hash("pause")) 
+	end
+end

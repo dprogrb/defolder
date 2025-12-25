@@ -1,0 +1,82 @@
+script: "/scenese/game/game.gui_script"
+fonts {
+  name: "default"
+  font: "/builtins/fonts/default.font"
+}
+nodes {
+  position {
+    x: 480.0
+    y: 320.0
+  }
+  type: TYPE_BOX
+  id: "root"
+  inherit_alpha: true
+  size_mode: SIZE_MODE_AUTO
+  visible: false
+}
+nodes {
+  position {
+    x: -380.0
+    y: 270.0
+  }
+  size {
+    x: 160.0
+    y: 40.0
+  }
+  type: TYPE_BOX
+  id: "button_set_pause"
+  parent: "root"
+  inherit_alpha: true
+  alpha: 0.8
+}
+nodes {
+  size {
+    x: 200.0
+    y: 100.0
+  }
+  color {
+    x: 0.6
+    y: 0.0
+    z: 0.0
+  }
+  type: TYPE_TEXT
+  text: "SET PAUSE"
+  font: "default"
+  id: "text_set_pause"
+  parent: "button_set_pause"
+  inherit_alpha: true
+}
+nodes {
+  position {
+    x: 380.0
+    y: 270.0
+  }
+  size {
+    x: 160.0
+    y: 40.0
+  }
+  type: TYPE_BOX
+  id: "button_set_game_over"
+  parent: "root"
+  inherit_alpha: true
+  alpha: 0.8
+}
+nodes {
+  size {
+    x: 200.0
+    y: 100.0
+  }
+  color {
+    x: 0.6
+    y: 0.0
+    z: 0.0
+  }
+  type: TYPE_TEXT
+  text: "SET GAME OVER"
+  font: "default"
+  id: "text_set_game_over"
+  parent: "button_set_game_over"
+  inherit_alpha: true
+}
+material: "/builtins/materials/gui.material"
+adjust_reference: ADJUST_REFERENCE_PARENT

@@ -1,0 +1,54 @@
+-- По умолчанию ноды имеют прозрачность равную 0.8
+
+local GSFSM = require ("modules.game_statemachine")
+local monarch = require ("monarch.monarch") 
+
+function init(self)
+    msg.post(".", "acquire_input_focus")
+    self.buttons = {
+        {id = "button_options_1", node = nil, hovered = false},
+        {id = "button_options_2", node = nil, hovered = false},
+        {id = "button_back", node = nil, hovered = false}
+    }
+
+    -- Предзагружаем все ноды
+    for _, btn in ipairs(self.buttons) do
+        btn.node = gui.get_node(btn.id)
+    end
+
+end
+
+function on_input(self, action_id, action)
+    if action.x and action.y then
+        for _, btn in ipairs(self.buttons) do
+            if gui.pick_node(btn.node, action.x, action.y) then
+                if not btn.hovered then
+                    btn.hovered = true
+                    -- Уменьшаем масштаб
+                    gui.animate(btn.node, gui.PROP_SCALE, vmath.vector3(0.99, 0.99, 1), gui.EASING_INOUTQUAD, 0.1)
+                    -- Изменяем яркость
+                    gui.animate(btn.node, gui.PROP_COLOR, vmath.vector4(1, 1, 1, 1), gui.EASING_INOUTQUAD, 0.1)
+                end
+            else
+                if btn.hovered then
+                    btn.hovered = false
+                    -- Восстанавливаем масштаб
+                    gui.animate(btn.node, gui.PROP_SCALE, vmath.vector3(1, 1, 1), gui.EASING_INOUTQUAD, 0.1)
+                    -- Изменяем яркость
+                    gui.animate(btn.node, gui.PROP_COLOR, vmath.vector4(0.8, 0.8, 0.8, 1), gui.EASING_INOUTQUAD, 0.1)
+                end
+            end
+        end
+    end
+
+    -- Обработка клика
+    if action_id == hash("touch") and action.pressed then
+        for _, btn in ipairs(self.buttons) do
+            if gui.pick_node(btn.node, action.x, action.y) and btn.id == "button_back" then
+                GSFSM.machine:pause()
+                print("Current STATE: " .. GSFSM.machine.current)
+                monarch.hide(hash("game_settings"))
+            end
+        end
+    end
+end

@@ -1,0 +1,24 @@
+key_trigger {
+  input: KEY_1
+  action: "menu"
+}
+key_trigger {
+  input: KEY_2
+  action: "settings"
+}
+key_trigger {
+  input: KEY_3
+  action: "game"
+}
+key_trigger {
+  input: KEY_4
+  action: "pause"
+}
+key_trigger {
+  input: KEY_5
+  action: "game_over"
+}
+mouse_trigger {
+  input: MOUSE_BUTTON_1
+  action: "touch"
+}

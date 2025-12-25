@@ -1,0 +1,176 @@
+script: "/scenese/menu/menu.gui_script"
+fonts {
+  name: "default"
+  font: "/builtins/fonts/default.font"
+}
+nodes {
+  position {
+    x: 480.0
+    y: 320.0
+  }
+  type: TYPE_BOX
+  id: "root"
+  inherit_alpha: true
+  size_mode: SIZE_MODE_AUTO
+}
+nodes {
+  position {
+    x: 1.0
+    y: 46.0
+  }
+  size {
+    x: 160.0
+    y: 40.0
+  }
+  type: TYPE_BOX
+  id: "button_play"
+  parent: "root"
+  inherit_alpha: true
+  alpha: 0.8
+}
+nodes {
+  size {
+    x: 200.0
+    y: 100.0
+  }
+  color {
+    x: 0.6
+    y: 0.0
+    z: 0.0
+  }
+  type: TYPE_TEXT
+  text: "PLAY"
+  font: "default"
+  id: "text_play"
+  parent: "button_play"
+  inherit_alpha: true
+}
+nodes {
+  position {
+    x: 1.0
+  }
+  size {
+    x: 160.0
+    y: 40.0
+  }
+  type: TYPE_BOX
+  id: "button_records"
+  parent: "root"
+  inherit_alpha: true
+  alpha: 0.8
+}
+nodes {
+  size {
+    x: 200.0
+    y: 100.0
+  }
+  color {
+    x: 0.6
+    y: 0.0
+    z: 0.0
+  }
+  type: TYPE_TEXT
+  text: "RECORDS"
+  font: "default"
+  id: "text_records"
+  parent: "button_records"
+  inherit_alpha: true
+}
+nodes {
+  position {
+    x: 1.0
+    y: -46.0
+  }
+  size {
+    x: 160.0
+    y: 40.0
+  }
+  type: TYPE_BOX
+  id: "button_authors"
+  parent: "root"
+  inherit_alpha: true
+  alpha: 0.8
+}
+nodes {
+  size {
+    x: 200.0
+    y: 100.0
+  }
+  color {
+    x: 0.6
+    y: 0.0
+    z: 0.0
+  }
+  type: TYPE_TEXT
+  text: "AUTHORS"
+  font: "default"
+  id: "text_authors"
+  parent: "button_authors"
+  inherit_alpha: true
+}
+nodes {
+  position {
+    x: 259.0
+    y: 276.0
+  }
+  size {
+    x: 130.0
+    y: 40.0
+  }
+  type: TYPE_BOX
+  id: "button_settings"
+  parent: "root"
+  inherit_alpha: true
+  alpha: 0.8
+}
+nodes {
+  size {
+    x: 200.0
+    y: 100.0
+  }
+  color {
+    x: 0.6
+    y: 0.0
+    z: 0.0
+  }
+  type: TYPE_TEXT
+  text: "SETTINGS"
+  font: "default"
+  id: "text_settings"
+  parent: "button_settings"
+  inherit_alpha: true
+}
+nodes {
+  position {
+    x: 395.0
+    y: 276.0
+  }
+  size {
+    x: 130.0
+    y: 40.0
+  }
+  type: TYPE_BOX
+  id: "button_exit"
+  parent: "root"
+  inherit_alpha: true
+  alpha: 0.8
+}
+nodes {
+  size {
+    x: 200.0
+    y: 100.0
+  }
+  color {
+    x: 0.6
+    y: 0.0
+    z: 0.0
+  }
+  type: TYPE_TEXT
+  text: "EXIT"
+  font: "default"
+  id: "text_exit"
+  parent: "button_exit"
+  inherit_alpha: true
+}
+material: "/builtins/materials/gui.material"
+adjust_reference: ADJUST_REFERENCE_PARENT
