@@ -1,6 +1,10 @@
-Добро пожаловать на **GitHub** репозиторий форума Defolder. В этом репозитории вы можете найти уроки, мануалы, руководства, готовые примеры, прототипы.
+## Добро пожаловать в GitHub-репозиторий форума Defolder!
 
-Форум: https://defolder.com/
-Telegram канал: https://t.me/defolder_hub
-Telegram чаты: https://t.me/defolder_chats
+Здесь собраны уроки, мануалы, руководства, готовые примеры и прототипы.
+
+## Контакты сообщества
+- **Форум**: [https://defolder.com/](https://defolder.com/)
+- **Telegram канал**: [https://t.me/defolder_hub](https://t.me/defolder_hub)
+- **Telegram чаты**: [https://t.me/defolder_chats](https://t.me/defolder_chats)
+
 
